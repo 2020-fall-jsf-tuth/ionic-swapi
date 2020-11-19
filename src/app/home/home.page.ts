@@ -26,10 +26,19 @@ export class HomePage {
   }
 
   getDisplayColor(planet) {
-    return planet.name == 'unknown' ? 
-      'goldenrod' : 
-        planet.name == 'Tatooine' ?
-          'green' :
-            'inherit'
+
+    if ('unknown' == planet.name)
+      return 'goldenrod';
+    else if ('Tatooine' == planet.name)
+      return 'green';
+    else
+      return 'inherit';
+
+
+    // return planet.name == 'unknown' ? 
+    //   'goldenrod' : 
+    //     planet.name == 'Tatooine' ?
+    //       'green' :
+    //         'inherit'
   }
 }

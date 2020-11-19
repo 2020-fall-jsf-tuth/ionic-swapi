@@ -19,15 +19,21 @@ export class SwapiService {
     //   , repeat(10)
     // );
 
-    return merge(
-      this.httpSvc.get("https://swapi.dev/api/planets/")
-      , this.httpSvc.get("https://swapi.dev/api/planets/?page=2")
-      , this.httpSvc.get("https://swapi.dev/api/planets/?page=3")
-      , this.httpSvc.get("https://swapi.dev/api/planets/?page=4")
-      , this.httpSvc.get("https://swapi.dev/api/planets/?page=5")
-      , this.httpSvc.get("https://swapi.dev/api/planets/?page=6")
-    ).pipe(
-      map(x => (x as any).results.map(y => ({name: y.name})))
+    // return merge(
+    //   this.httpSvc.get("https://swapi.dev/api/planets/")
+    //   , this.httpSvc.get("https://swapi.dev/api/planets/?page=2")
+    //   , this.httpSvc.get("https://swapi.dev/api/planets/?page=3")
+    //   , this.httpSvc.get("https://swapi.dev/api/planets/?page=4")
+    //   , this.httpSvc.get("https://swapi.dev/api/planets/?page=5")
+    //   , this.httpSvc.get("https://swapi.dev/api/planets/?page=6")
+    // ).pipe(
+    //   map(x => (x as any).results.map(y => ({name: y.name})))
+    // );
+
+    return this.httpSvc.get("https://swapi.dev/api/planets/").pipe(
+      expand(x => (x as any).next ? this.httpSvc.get((x as any).next.replaceAll("http:", "https:")) : EMPTY)
+      , map(x => (x as any).results.map(y => ({name: y.name})))
     );
+
   }
 }

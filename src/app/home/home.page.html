@@ -1,15 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      SWAPI Planets
+      SWAPI Planets ({{ planets.length }})
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <ion-item>
-      Naboo
+    <ion-item
+      *ngFor="let planet of planets"
+    >
+      {{ planet.name }}
     </ion-item>
   </ion-list>
 </ion-content>

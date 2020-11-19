@@ -8,11 +8,16 @@ import { SwapiService } from '../swapi.service';
 })
 export class HomePage {
 
+  planets = [];
+
   constructor(private swapiSvc: SwapiService) {
     this.swapiSvc
       .fetchPlanets()
       .subscribe(
-        data => console.log(data)
+        data => this.planets = [
+          ...this.planets
+          , ...data
+        ].sort((a, b) => a.name > b.name ? 1 : -1)
         , err => console.error(err)
       );
   }

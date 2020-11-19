@@ -14,8 +14,9 @@ export class SwapiService {
   fetchPlanets() {
     return this.httpSvc.get("https://swapi.dev/api/planets/").pipe(
       tap(x => console.log(x))
-      , repeat(3)
-      , tap(x => console.info(x))
+      , map(x => (x as any).results.map(y => ({name: y.name})))
+      , tap(x => console.log(x))
+      , repeat(10)
     );
   }
 }

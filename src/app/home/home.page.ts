@@ -17,7 +17,7 @@ export class HomePage {
         data => this.planets = [
           ...this.planets
           , ...data
-        ].sort((a, b) => a.name > b.name ? 1 : -1)
+        ].sort((a, b) => a.name.toUpperCase() > b.name.toUpperCase() ? 1 : -1)
         , err => console.error(err)
       );
   }
